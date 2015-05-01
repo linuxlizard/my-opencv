@@ -1,3 +1,4 @@
+// From _Learning OpenCV, 2e_
 #include <iostream>
 #include <cstdlib>
 //#include <opencv2/opencv.hpp>
