@@ -1,20 +1,24 @@
-CXX=clang++
-#CXX=g++
+#CXX=clang++
+CXX=g++
 CXXFLAGS=-g -Wall -std=c++11 $(shell pkg-config opencv --cflags)
-LDFLAGS=-g $(shell pkg-config opencv --libs)
+LDFLAGS=-g $(shell pkg-config opencv --libs) -lstdc++
 
+#ALL=imshow smooth 
 ALL=imshow smooth pyrdown canny camera findContours_demo otsu
 
 all : $(ALL)
 
-imshow : imshow.cc
-smooth : smooth.cc
-pyrdown : pyrdown.cc
-canny : canny.cc
-otsu : otsu.cc
-camera : camera.cc
-findContours_demo : findContours_demo.cpp
+%:%.o
+	$(CXX) $(CFLAGS) -o $@ $^ $(LDFLAGS) -lstdc++
+
+imshow : imshow.o
+smooth : smooth.o
+pyrdown : pyrdown.o
+canny : canny.o
+otsu : otsu.o
+camera : camera.o
+findContours_demo : findContours_demo.o
 
 clean:
-	$(RM) -f $(ALL)
+	$(RM) -f $(ALL) *.o
 
