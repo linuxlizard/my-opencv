@@ -31,7 +31,7 @@ int main( int argc, char *argv[] )
     Mat Lab[3];
     split( img_lab, Lab );
 
-    array<string,3> filename { "L.png", "a.png", "b.png" };
+    array<string,3> filename { { "L.png", "a.png", "b.png" } };
     auto fname_iter = filename.begin();
     for( int i=0 ; i<3 ; i++ ) {
         cout << Lab[i].rows << " " << Lab[i].cols << "\n";
