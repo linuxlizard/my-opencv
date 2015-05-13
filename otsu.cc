@@ -3,6 +3,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
+using namespace std;
 using namespace cv;
 
 int main(int argc, char *argv[] )
@@ -11,19 +12,26 @@ int main(int argc, char *argv[] )
         return EXIT_FAILURE;
     }
 
-    cv::Mat img = cv::imread(argv[1],-1);
+    Mat img = imread(argv[1],-1);
     if( img.empty() ) {
         return EXIT_FAILURE;
     }
 
-    cv::Mat img_gray, img_bw;
+    cout << "channels=" << img.channels() << "\n";
 
-    cv::cvtColor( img, img_gray, cv::COLOR_BGR2GRAY );
+    Mat img_gray, img_bw;
+
+    if( img.channels()==1 ) {
+        img.copyTo(img_gray);
+    }
+    else {
+        cvtColor( img, img_gray, COLOR_BGR2GRAY );
+    }
 
     // https://stackoverflow.com/questions/17141535/how-to-use-the-otsu-threshold-in-opencv 
 
-    cv::threshold(img_gray, img_bw, 0, 255, CV_THRESH_BINARY | CV_THRESH_OTSU);
+    threshold(img_gray, img_bw, 0, 255, CV_THRESH_BINARY | CV_THRESH_OTSU);
 
-    cv::imwrite("otsu.png",img_bw);
+    imwrite("otsu.png",img_bw);
 }
 
